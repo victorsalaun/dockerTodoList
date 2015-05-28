@@ -34,3 +34,12 @@ RUN echo "alias lt='lrt'" >> ~/.bashrc
 
 # MAJ des sources
 ADD src/ /home/app/src/
+
+RUN chown -R app:app src
+
+# Installation des dependances
+WORKDIR /home/app/src
+
+RUN npm install
+
+RUN node app.js
