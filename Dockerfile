@@ -16,6 +16,11 @@ RUN mv /usr/share/vim/vimrc.tmp /usr/share/vim/vimrc
 # add user app
 RUN adduser --disabled-password --gecos "app user" app
 
+# MAJ des sources
+ADD src/ /home/app/src/
+
+RUN chown -R app:app /home/app/src
+
 # go to user and workdir
 USER app
 WORKDIR /home/app
@@ -31,11 +36,6 @@ RUN echo "alias ll='ls -alh'" >> ~/.bashrc
 RUN echo "alias l='ll'" >> ~/.bashrc
 RUN echo "alias lrt='ls -alhrt'" >> ~/.bashrc
 RUN echo "alias lt='lrt'" >> ~/.bashrc
-
-# MAJ des sources
-ADD src/ /home/app/src/
-
-RUN chown -R app:app /home/app/src
 
 # Installation des dependances
 WORKDIR /home/app/src
