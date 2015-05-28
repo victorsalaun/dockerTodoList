@@ -35,7 +35,7 @@ RUN echo "alias lt='lrt'" >> ~/.bashrc
 # MAJ des sources
 ADD src/ /home/app/src/
 
-RUN chown -R app:app src
+RUN chown -R app:app /home/app/src
 
 # Installation des dependances
 WORKDIR /home/app/src
