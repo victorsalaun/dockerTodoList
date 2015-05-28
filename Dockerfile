@@ -42,4 +42,3 @@ WORKDIR /home/app/src
 
 RUN npm install
 
-RUN node app.js
