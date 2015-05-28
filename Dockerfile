@@ -33,4 +33,4 @@ RUN echo "alias lrt='ls -alhrt'" >> ~/.bashrc
 RUN echo "alias lt='lrt'" >> ~/.bashrc
 
 # MAJ des sources
-ADD src/* /home/app/src/*
+ADD src/ /home/app/src/
