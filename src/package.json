@@ -5,6 +5,7 @@
         "express": "~4.11.0",
         "ejs": "~2.1.4",
         "cookie-session": "~1.1.0",
+        "mongoose": "~4.0.4",
         "body-parser": "~1.10.1"
     },
     "author": "Mateo21 <mateo21@email.com>",
