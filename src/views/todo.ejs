@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+CTYPE html>
 
 <html>
     <head>
@@ -12,8 +12,8 @@
         <h1>Ma todolist</h1>
 
         <ul>
-        <% todolist.forEach(function(todo, index) { %>
-            <li><a href="/todo/supprimer/<%= index %>">✘</a> <%= todo %></li>
+        <% todolist.forEach(function(todo) { %>
+            <li><a href="/todo/supprimer/<%= todo._id %>">✘</a> <%= todo.contenu %></li>
         <% }); %>
         </ul>
 
@@ -26,3 +26,5 @@
         </form>
     </body>
 </html>
+
+

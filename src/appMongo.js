@@ -10,46 +10,38 @@ mongoose.connect('mongodb://172.17.0.11/todoList', function(err) {
   if (err) { throw err; }
 });
 
-var commentaireArticleSchema = new mongoose.Schema({
-  pseudo : { type : String, match: /^[a-zA-Z0-9-_]+$/ },
+var ligneArticleSchema = new mongoose.Schema({
   contenu : String,
   date : { type : Date, default : Date.now }
 });
-
-
-var CommentaireArticleModel = mongoose.model('commentaires', commentaireArticleSchema);
-
-var monCommentaire = new CommentaireArticleModel({ pseudo : 'Atinux' });
-// On rajoute le contenu du commentaire, possible de le faire lors de l'instanciation
-monCommentaire.contenu = 'Salut, super article sur Mongoose !';
-
-monCommentaire.save(function (err) {
-  if (err) { throw err; }
-  console.log('Commentaire ajouté avec succès !');
-});
+var LigneArticleModel = mongoose.model('lignes', ligneArticleSchema);
 
 /* On utilise les sessions */
 app.use(session({secret: 'todotopsecret'}))
 
-
 /* S'il n'y a pas de todolist dans la session,
 on en crée une vide sous forme d'array avant la suite */
 .use(function(req, res, next){
-    if (typeof(req.session.todolist) == 'undefined') {
-        req.session.todolist = [];
-    }
     next();
 })
 
 /* On affiche la todolist et le formulaire */
 .get('/todo', function(req, res) {
-    res.render('todo.ejs', {todolist: req.session.todolist});
+        LigneArticleModel.find(function (err, matodolist) {
+                if (err) return handleError(err);
+                res.render('todo.ejs', {todolist: matodolist});
+        })
 })
 
 /* On ajoute un élément à la todolist */
 .post('/todo/ajouter/', urlencodedParser, function(req, res) {
     if (req.body.newtodo != '') {
-        req.session.todolist.push(req.body.newtodo);
+        maLigne = new LigneArticleModel();
+        maLigne.contenu = req.body.newtodo;
+        maLigne.save(function (err) {
+          if (err) { throw err; }
+          console.log('Ligne ajouté avec succès !');
+        });
     }
     res.redirect('/todo');
 })
@@ -57,9 +49,11 @@ on en crée une vide sous forme d'array avant la suite */
 /* Supprime un élément de la todolist */
 .get('/todo/supprimer/:id', function(req, res) {
     if (req.params.id != '') {
-        req.session.todolist.splice(req.params.id, 1);
+        LigneArticleModel.findByIdAndRemove({_id:req.params.id},function (err, callback) {
+                if (err) return handleError(err);
+                res.redirect('/todo');
+        })
     }
-    res.redirect('/todo');
 })
 
 /* On redirige vers la todolist si la page demandée n'est pas trouvée */
