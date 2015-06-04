@@ -6,7 +6,7 @@ var urlencodedParser = bodyParser.urlencoded({ extended: false });
 
 var app = express();
 
-mongoose.connect('mongodb://172.17.0.11/todoList', function(err) {
+mongoose.connect('mongodb://db/todoList', function(err) {
   if (err) { throw err; }
 });
 
