@@ -29,7 +29,7 @@ on en crée une vide sous forme d'array avant la suite */
 .get('/todo', function(req, res) {
         LigneArticleModel.find(function (err, matodolist) {
                 if (err) return handleError(err);
-                res.render('todo.ejs', {todolist: matodolist});
+                res.render('todoMongo.ejs', {todolist: matodolist});
         })
 })
 
