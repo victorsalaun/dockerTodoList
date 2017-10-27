@@ -6,6 +6,7 @@ var urlencodedParser = bodyParser.urlencoded({ extended: false });
 var app = express();
 
 
+/* coucou */
 /* On utilise les sessions */
 app.use(session({secret: 'todotopsecret'}))
 
